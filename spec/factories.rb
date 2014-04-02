@@ -11,4 +11,9 @@ FactoryGirl.define do
     longitude { Faker::Geolocation.lng }
     latitude { Faker::Geolocation.lat }
   end
+
+  factory :publisher do
+    sequence(:title) { |n| "title-#{n}" }
+    sequence(:url) { Faker::Internet.uri(%w(http https).sample) }
+  end
 end
