@@ -11,9 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140402175622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "subscriptions", force: true do |t|
+    t.string   "phone",                              null: false
+    t.integer  "radius",                             null: false
+    t.decimal  "longitude",  precision: 9, scale: 6, null: false
+    t.decimal  "latitude",   precision: 9, scale: 6, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriptions", ["phone"], name: "index_subscriptions_on_phone", using: :btree
 
 end
