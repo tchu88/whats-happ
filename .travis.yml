@@ -1,0 +1,5 @@
+language: ruby
+rvm:
+  - ruby-2.1.1
+notifications:
+  slack: cfa:KVI8UW1LayfvwbSb5i52Rqb6#charlotte
