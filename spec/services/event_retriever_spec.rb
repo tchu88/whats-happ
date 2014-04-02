@@ -1,14 +1,7 @@
 require 'spec_helper'
 
 describe EventRetriever do
-  subject { EventRetriever.new(connection, publisher) }
-
-  let(:connection) {
-    Faraday.new(url: publisher.url) do |conn|
-      conn.response :json
-      conn.adapter Faraday.default_adapter
-    end
-  }
+  subject { EventRetriever.new(publisher) }
   let(:publisher) { create(:publisher, url: url) }
   let(:url) { 'https://example.com/events.json' }
 
