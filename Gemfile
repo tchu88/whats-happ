@@ -10,6 +10,7 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.4'
+  gem 'ffaker'
 end
 
 group :test do
