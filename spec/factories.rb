@@ -14,6 +14,6 @@ FactoryGirl.define do
 
   factory :publisher do
     sequence(:title) { |n| "title-#{n}" }
-    sequence(:url) { Faker::Internet.uri(%w(http https).sample) }
+    sequence(:url) { |n| "https://publisher-#{n}.com/events.json" }
   end
 end

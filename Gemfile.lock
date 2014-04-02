@@ -25,10 +25,20 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
+    addressable (2.3.5)
     arel (4.0.2)
     atomic (1.1.16)
     builder (3.1.4)
+    columnize (0.3.6)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.2.0)
+    debugger (1.6.6)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.3.2)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.3.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -37,6 +47,10 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    faraday (0.8.9)
+      multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     ffaker (1.23.0)
     hike (1.2.3)
     i18n (0.6.9)
@@ -50,6 +64,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.2)
+    multipart-post (1.2.0)
     pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
@@ -81,6 +96,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    safe_yaml (1.0.1)
     sass (3.2.18)
     sass-rails (4.0.2)
       railties (>= 4.0.0, < 5.0)
@@ -109,13 +125,19 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    webmock (1.17.4)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   database_cleaner (~> 1.2)
+  debugger
   factory_girl_rails (~> 4.4)
+  faraday
+  faraday_middleware (~> 0.9)
   ffaker
   jquery-rails
   pg
@@ -124,3 +146,4 @@ DEPENDENCIES
   sass-rails (~> 4.0.2)
   shoulda-matchers (~> 2.5)
   uglifier (>= 1.3.0)
+  webmock (~> 1.17)
