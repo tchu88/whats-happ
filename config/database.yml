@@ -19,8 +19,6 @@ development:
   encoding: unicode
   database: whats_happ_development
   pool: 5
-  username: whats_happ
-  password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -48,13 +46,3 @@ test:
   encoding: unicode
   database: whats_happ_test
   pool: 5
-  username: whats_happ
-  password:
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: whats_happ_production
-  pool: 5
-  username: whats_happ
-  password:
