@@ -9,7 +9,7 @@ describe StreamUpdate do
     context "success" do
       before do
         stub_request(:get, url).
-          to_return(:status => 200, :body => File.read('spec/support/fixtures/events.json'))
+          to_return(status: 200, body: File.read('spec/support/fixtures/events.json'))
       end
 
       it 'creates an event' do
@@ -27,7 +27,7 @@ describe StreamUpdate do
       context "invalid" do
         before do
           stub_request(:get, url).
-            to_return(:status => 200, :body => File.read('spec/support/fixtures/invalid-events.json'))
+            to_return(status: 200, body: File.read('spec/support/fixtures/invalid-events.json'))
         end
 
         it 'returns the list of events' do
@@ -39,7 +39,7 @@ describe StreamUpdate do
       context "duplicate" do
         before do
           stub_request(:get, url).
-            to_return(:status => 200, :body => File.read('spec/support/fixtures/duplicate-events.json'))
+            to_return(status: 200, body: File.read('spec/support/fixtures/duplicate-events.json'))
         end
 
         it 'does not create duplicate records' do
