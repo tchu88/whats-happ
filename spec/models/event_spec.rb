@@ -11,6 +11,12 @@ describe Event do
   describe '#message' do
     it { should have_db_column(:message).with_options(null: false) }
     it { should validate_presence_of(:message) }
+
+    it { should have_db_index(:message).unique(true) }
+    it {
+      create(:event)
+      should validate_uniqueness_of(:message)
+    }
   end
 
   include_examples "a longitude"

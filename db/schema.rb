@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403063824) do
+ActiveRecord::Schema.define(version: 20140403072803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140403063824) do
     t.integer  "publisher_id"
   end
 
+  add_index "events", ["message"], name: "index_events_on_message", unique: true, using: :btree
   add_index "events", ["publisher_id"], name: "index_events_on_publisher_id", using: :btree
 
   create_table "publishers", force: true do |t|

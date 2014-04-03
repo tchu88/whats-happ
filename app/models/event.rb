@@ -3,4 +3,5 @@ class Event < ActiveRecord::Base
 
   include PointValidation
   validates_presence_of :message
+  validates_uniqueness_of :message
 end

@@ -1,7 +1,6 @@
 class StreamUpdate < Struct.new(:publisher, :notifier)
   def import
     body['events'].lazy.
-      reject { |attributes| Event.exists?(message: attributes['message']) }.
       map { |attributes| Event.new(attributes) }.
       select { |event| event.save }.
       force
