@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140402192844) do
+ActiveRecord::Schema.define(version: 20140403063824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: true do |t|
-    t.string   "message",                            null: false
-    t.decimal  "longitude",  precision: 9, scale: 6, null: false
-    t.decimal  "latitude",   precision: 9, scale: 6, null: false
+    t.string   "message",                              null: false
+    t.decimal  "longitude",    precision: 9, scale: 6, null: false
+    t.decimal  "latitude",     precision: 9, scale: 6, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "publisher_id"
   end
+
+  add_index "events", ["publisher_id"], name: "index_events_on_publisher_id", using: :btree
 
   create_table "publishers", force: true do |t|
     t.string   "title",      null: false

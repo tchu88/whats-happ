@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Publisher do
+  it { should have_many(:events) }
+
   describe '#title' do
     it { should have_db_column(:title).with_options(null: false) }
     it { should validate_presence_of(:title) }
