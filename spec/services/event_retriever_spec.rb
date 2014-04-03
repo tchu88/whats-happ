@@ -24,21 +24,36 @@ describe EventRetriever do
     end
 
     context "failure" do
-      before do
-        stub_request(:get, url).
-          to_return(:status => 200, :body => File.read('spec/support/fixtures/invalid-events.json'))
+      context "invalid" do
+        before do
+          stub_request(:get, url).
+            to_return(:status => 200, :body => File.read('spec/support/fixtures/invalid-events.json'))
+        end
+
+        it 'has a set of all error messages' do
+          subject.import
+          expect(subject.errors).to include("Message can't be blank", "Latitude can't be blank")
+        end
+
+        it 'returns the list of events' do
+          current_events = subject.import
+          expect(current_events.length).to eq 2
+          expect(current_events.first.message).to eq ""
+        end
       end
 
-      it 'has a set of all error messages' do
-        subject.import
-        expect(subject.errors).to include("Message can't be blank", "Latitude can't be blank")
-      end
+      context "duplicate" do
+        before do
+          stub_request(:get, url).
+            to_return(:status => 200, :body => File.read('spec/support/fixtures/duplicate-events.json'))
+        end
 
-      it 'returns the list of events' do
-        current_events = subject.import
-        expect(current_events.length).to eq 2
-        expect(current_events.first.message).to eq ""
+        it 'does not create duplicate records' do
+          create(:event, message: 'hello human')
+          expect { subject.import }.not_to change{ Event.count }
+        end
       end
     end
+
   end
 end

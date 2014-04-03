@@ -5,14 +5,25 @@ class EventRetriever < Struct.new(:publisher)
 
   def import
     events.map do |attributes|
-      event = Event.new(attributes)
+      event = find_or_initialize(attributes)
 
-      unless event.save
+      # try to save unless the record is a duplicate
+      if event.new_record?
+        event.save
         event.errors.full_messages.each { |msg| errors << msg }
       end
 
       event
     end
+  end
+
+  def find_or_initialize(attributes)
+    find(attributes) || Event.new(attributes)
+  end
+
+  # return the record if it exists, nil otherwise
+  def find(attributes)
+    Event.where(message: attributes['message']).first
   end
 
   def events
