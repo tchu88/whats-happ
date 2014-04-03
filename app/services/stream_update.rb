@@ -1,37 +1,16 @@
-require 'set'
-
-class StreamUpdate < Struct.new(:publisher)
-  attr_accessor :errors
-
+class StreamUpdate < Struct.new(:publisher, :notifier)
   def import
-    events.map do |attributes|
-      event = find_or_initialize(attributes)
-
-      # try to save unless the record is a duplicate
-      if event.new_record?
-        event.save
-        event.errors.full_messages.each { |msg| errors << msg }
-      end
-
-      event
-    end
+    body['events'].lazy.
+      reject { |attributes| Event.exists?(message: attributes['message']) }.
+      map { |attributes| Event.new(attributes) }.
+      select { |event| event.save }.
+      force
   end
 
-  def find_or_initialize(attributes)
-    find(attributes) || Event.new(attributes)
-  end
+  private
 
-  # return the record if it exists, nil otherwise
-  def find(attributes)
-    Event.where(message: attributes['message']).first
-  end
-
-  def events
-    @events ||= response['events']
-  end
-
-  def response
-    @response ||= connection.get(publisher.url).body
+  def body
+    @body ||= connection.get(publisher.url).body
   end
 
   def connection
@@ -39,9 +18,5 @@ class StreamUpdate < Struct.new(:publisher)
       conn.response :json
       conn.adapter Faraday.default_adapter
     end
-  end
-
-  def errors
-    @errors ||= Set.new
   end
 end

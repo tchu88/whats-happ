@@ -17,9 +17,9 @@ describe StreamUpdate do
       end
 
       it 'returns the created events' do
-        current_events = subject.import
-        expect(current_events.length).to eq 1
-        expect(current_events.first.message).to eq "hello human"
+        new_events = subject.import
+        expect(new_events.length).to eq 1
+        expect(new_events.first.message).to eq "hello human"
       end
     end
 
@@ -30,15 +30,9 @@ describe StreamUpdate do
             to_return(:status => 200, :body => File.read('spec/support/fixtures/invalid-events.json'))
         end
 
-        it 'has a set of all error messages' do
-          subject.import
-          expect(subject.errors).to include("Message can't be blank", "Latitude can't be blank")
-        end
-
         it 'returns the list of events' do
-          current_events = subject.import
-          expect(current_events.length).to eq 2
-          expect(current_events.first.message).to eq ""
+          new_events = subject.import
+          expect(new_events.length).to eq 0
         end
       end
 
