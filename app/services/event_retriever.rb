@@ -1,10 +1,26 @@
+require 'set'
+
 class EventRetriever < Struct.new(:publisher)
+  attr_accessor :errors
+
   def import
-    Event.create!(response['notifications'])
+    events.map do |attributes|
+      event = Event.new(attributes)
+
+      unless event.save
+        event.errors.full_messages.each { |msg| errors << msg }
+      end
+
+      event
+    end
+  end
+
+  def events
+    @events ||= response['events']
   end
 
   def response
-    connection.get(publisher.url).body
+    @response ||= connection.get(publisher.url).body
   end
 
   def connection
@@ -12,5 +28,9 @@ class EventRetriever < Struct.new(:publisher)
       conn.response :json
       conn.adapter Faraday.default_adapter
     end
+  end
+
+  def errors
+    @errors ||= Set.new
   end
 end

@@ -6,11 +6,39 @@ describe EventRetriever do
   let(:url) { 'https://example.com/events.json' }
 
   describe '#import' do
-    it 'creates an event' do
-      stub_request(:get, url).
-        to_return(:status => 200, :body => File.read('spec/support/fixtures/events.json'))
+    context "success" do
+      before do
+        stub_request(:get, url).
+          to_return(:status => 200, :body => File.read('spec/support/fixtures/events.json'))
+      end
 
-      expect{ subject.import }.to change{ Event.count }.by(+1)
+      it 'creates an event' do
+        expect { subject.import }.to change{ Event.count }.by(+1)
+      end
+
+      it 'returns the created events' do
+        current_events = subject.import
+        expect(current_events.length).to eq 1
+        expect(current_events.first.message).to eq "hello human"
+      end
+    end
+
+    context "failure" do
+      before do
+        stub_request(:get, url).
+          to_return(:status => 200, :body => File.read('spec/support/fixtures/invalid-events.json'))
+      end
+
+      it 'has a set of all error messages' do
+        subject.import
+        expect(subject.errors).to include("Message can't be blank", "Latitude can't be blank")
+      end
+
+      it 'returns the list of events' do
+        current_events = subject.import
+        expect(current_events.length).to eq 2
+        expect(current_events.first.message).to eq ""
+      end
     end
   end
 end
