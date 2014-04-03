@@ -1,15 +1,13 @@
 class StreamUpdate < Struct.new(:publisher, :notifier)
   def import
-    body['events'].lazy.
+    current_events.lazy.
       map { |attributes| Event.new(attributes) }.
       select { |event| event.save }.
       force
   end
 
-  private
-
-  def body
-    @body ||= connection.get(publisher.url).body
+  def current_events
+    @current_events ||= connection.get.body['events']
   end
 
   def connection
