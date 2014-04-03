@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe EventRetriever do
-  subject { EventRetriever.new(publisher) }
+describe StreamUpdate do
+  subject { StreamUpdate.new(publisher) }
   let(:publisher) { create(:publisher, url: url) }
   let(:url) { 'https://example.com/events.json' }
 

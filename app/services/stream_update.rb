@@ -1,6 +1,6 @@
 require 'set'
 
-class EventRetriever < Struct.new(:publisher)
+class StreamUpdate < Struct.new(:publisher)
   attr_accessor :errors
 
   def import
