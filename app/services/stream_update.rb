@@ -1,4 +1,4 @@
-class StreamUpdate < Struct.new(:publisher, :notifier)
+class StreamUpdate < Struct.new(:publisher)
   def import
     current_events.lazy.
       map { |attributes| Event.new(attributes) }.
