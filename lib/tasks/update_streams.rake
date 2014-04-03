@@ -1,5 +1,5 @@
 task :update_streams do
-  require Rails.root.join('lib', 'event_retriever')
+  # require Rails.root.join('lib', 'update_streams')
 
   # to be finished
 
