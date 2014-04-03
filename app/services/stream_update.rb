@@ -1,11 +1,29 @@
 class StreamUpdate < Struct.new(:publisher)
+  REQUIRED_ATTRIBUTES = %w(message longitude latitude)
+
+  class PermittedAttributes < ActionController::Parameters; end
+
   def import
     current_events.lazy.
-      map { |attributes| Event.new(attributes) }.
-      select { |event| event.save }.
+      map(&method(:permit_attributes)).
+      map(&method(:build_event)).
+      select(&method(:save?)).
       force
   end
 
+  def permit_attributes(attributes)
+    PermittedAttributes.new(attributes).permit(REQUIRED_ATTRIBUTES)
+  end
+
+  def build_event(attributes)
+    Event.new(attributes)
+  end
+
+  def save?(event)
+    event.save
+  end
+
+  # TODO: extract http stuff into a separate class
   def current_events
     response['events']
   end
