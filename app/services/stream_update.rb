@@ -7,7 +7,11 @@ class StreamUpdate < Struct.new(:publisher)
   end
 
   def current_events
-    @current_events ||= connection.get.body['events']
+    response['events']
+  end
+
+  def response
+    @response ||= connection.get.body
   end
 
   def connection
