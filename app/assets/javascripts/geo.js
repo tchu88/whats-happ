@@ -14,15 +14,20 @@ $(function (){
     clickable:   false
   };
   var initialCoords = [37.7756648, -122.4136613];
+  var nullCoords = { lat: null, lon: null };
   var map = L.map('subscription_map').setView(initialCoords, 12);
   var circle = L.circle(initialCoords, 0, circleStyle).addTo(map);
   L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
 
-  function isBlank(str) {
-    return (!str || /^\s*$/.test(str));
-  }
+  function isBlank(str) { return (!str || /^\s*$/.test(str)); }
+  function getLat(){ return parseFloat($('#subscription_latitude').val()); }
+  function getLon(){ return parseFloat($('#subscription_longitude').val()); }
+  function getRadius() { return parseInt($('#subscription_radius').val(), 10); }
+
   function drawRadius(coords) {
-    coords.radius = coords.radius || parseInt($('#subscription_radius').val(), 10);
+    coords.lat = coords.lat || getLat();
+    coords.lon = coords.lon || getLon();
+    coords.radius = getRadius();
 
     if (coords.radius && coords.lat && coords.lon) {
       circle.setLatLng([coords.lat, coords.lon]);
@@ -48,9 +53,10 @@ $(function (){
   }
   function updateLocation() {
     var address = $(this).val();
-    if (isBlank(address)) return setLatLon({lat: null, lon: null});
+    if (isBlank(address)) return setLatLon(nullCoords);
     $.getJSON(geocodeURL(address), _.compose(drawRadius, setLatLon, centerMap, _.first));
   }
 
+  $('#subscription_radius').change(_.partial(drawRadius, nullCoords));
   $('#subscription_address').change(updateLocation);
 });
