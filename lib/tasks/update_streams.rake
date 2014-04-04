@@ -4,6 +4,6 @@ task :update_streams do
   # to be finished
 
   # Publisher.find_each do |publisher|
-  #   StreamUpdate.new(publisher).import
+  #   StreamUpdate.new(publisher).call
   # end
 end

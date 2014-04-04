@@ -3,7 +3,7 @@ class StreamUpdate < Struct.new(:publisher)
 
   class PermittedAttributes < ActionController::Parameters; end
 
-  def import
+  def call
     current_events.lazy.
       map(&method(:permit_attributes)).
       map(&method(:build_event)).

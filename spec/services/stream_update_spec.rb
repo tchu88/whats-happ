@@ -5,7 +5,7 @@ describe StreamUpdate do
   let(:publisher) { create(:publisher, url: url) }
   let(:url) { 'https://example.com/events.json' }
 
-  describe '#import' do
+  describe '#call' do
     context "success" do
       before do
         stub_request(:get, url).
@@ -13,11 +13,11 @@ describe StreamUpdate do
       end
 
       it 'creates an event' do
-        expect { subject.import }.to change{ Event.count }.by(+1)
+        expect { subject.call }.to change{ Event.count }.by(+1)
       end
 
       it 'returns the created events' do
-        new_events = subject.import
+        new_events = subject.call
         expect(new_events.length).to eq 1
         expect(new_events.first.message).to eq "hello human"
       end
@@ -31,7 +31,7 @@ describe StreamUpdate do
         end
 
         it 'returns the list of events' do
-          new_events = subject.import
+          new_events = subject.call
           expect(new_events.length).to eq 0
         end
       end
@@ -44,7 +44,7 @@ describe StreamUpdate do
 
         it 'does not create duplicate records' do
           create(:event, message: 'hello human')
-          expect { subject.import }.not_to change{ Event.count }
+          expect { subject.call }.not_to change{ Event.count }
         end
       end
     end
