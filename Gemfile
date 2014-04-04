@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'faraday'
 gem 'faraday_middleware', '~> 0.9'
 gem 'jquery-rails'
