@@ -1,5 +1,5 @@
 $(function (){
-  if (!$('body').hasClass('subscriptions-new')) return;
+  if (_.isEmpty($('#subscription_map'))) return;
 
   var circleStyle = {
     stroke:      true,
