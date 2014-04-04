@@ -1,0 +1,3 @@
+<li class="<%= current_page?(path) ? 'active' : '' %>">
+  <%= link_to text, path, {title: text}.merge(options) %>
+</li>
