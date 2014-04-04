@@ -16,6 +16,7 @@ describe SubscriptionsController do
 
     context 'given valid data' do
       it { should redirect_to root_path }
+      it { should set_the_flash.to(I18n.t('subscriptions.create.success')) }
     end
 
     context 'given invalid data' do

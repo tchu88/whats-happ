@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = Subscription.new(subscription_params)
     if @subscription.save
-      redirect_to root_path
+      redirect_to root_path, notice: t('subscriptions.create.success')
     else
       render :new
     end
