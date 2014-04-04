@@ -17,6 +17,7 @@ end
 
 group :development, :test do
   gem 'debugger'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails', '~> 4.4'
   gem 'ffaker'
 end

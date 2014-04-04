@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-WhatsHapp::Application.config.secret_key_base = 'a3b9f9fd59c244ba544313157e5aaa0ff043fba6a6e01b4bd09b8e13a0400b2e03506080817ec356f7e3cfe8bda67d6893310ee2eb5c85eb8ca7312b7c671395'
+WhatsHapp::Application.config.secret_key_base = ENV.fetch('SECRET_TOKEN')
