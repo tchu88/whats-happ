@@ -1,3 +1,8 @@
+function setupMap(){
+  var map = L.map('subscription_map').setView([37.7756648, -122.4136613], 12);
+  L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+}
+
 function setupGeocoding(){
   function isBlank(str) { return (!str || /^\s*$/.test(str)); }
   function setLatLon(coords) {
@@ -23,4 +28,5 @@ function setupGeocoding(){
   $('#subscription_address').change(geocode);
 }
 
+$(setupMap);
 $(setupGeocoding);
