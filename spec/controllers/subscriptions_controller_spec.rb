@@ -5,6 +5,7 @@ describe SubscriptionsController do
     let(:params) {{
       subscription: {
         phone: Faker::PhoneNumber.phone_number,
+        address: Faker::Address.street_address,
         latitude: Faker::Geolocation.lat,
         longitude: Faker::Geolocation.lng,
         radius: 500
@@ -26,6 +27,7 @@ describe SubscriptionsController do
       let(:invalid_params) {{
         subscription: {
           phone: "",
+          address: Faker::Address.street_address,
           latitude: Faker::Geolocation.lat,
           longitude: Faker::Geolocation.lng,
           radius: 500
@@ -34,6 +36,11 @@ describe SubscriptionsController do
 
       it 'does not create a subscription' do
         expect { post :create, invalid_params }.not_to change{ Subscription.count }
+      end
+
+      it 'render the new template' do
+        post :create, invalid_params
+        expect(response).to render_template 'subscriptions/new'
       end
     end
   end

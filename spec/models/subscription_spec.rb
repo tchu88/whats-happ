@@ -12,6 +12,11 @@ describe Subscription do
     it { should validate_numericality_of(:radius).is_greater_than(0) }
   end
 
+  describe '#address' do
+    it { should respond_to(:address) }
+    it { should respond_to(:address=) }
+  end
+
   include_examples "a longitude"
   include_examples "a latitude"
 end

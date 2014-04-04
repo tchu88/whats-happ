@@ -1,0 +1,17 @@
+<%= form_for @subscription, role: 'form' do |f| %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :latitude %>
+  <div class="form-group">
+    <%= f.label :phone %>
+    <%= f.text_field :phone, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: 'form-control', name: nil %>
+  </div>
+  <div class="form-group">
+    <%= f.label :radius %>
+    <%= f.text_field :radius, class: 'form-control' %>
+  </div>
+  <%= f.button :submit, class: 'btn btn-default' %>
+<% end %>
