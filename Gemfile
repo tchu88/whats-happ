@@ -11,6 +11,10 @@ gem 'rails', '4.0.4'
 gem 'sass-rails', '~> 4.0.2'
 gem 'uglifier', '>= 1.3.0'
 
+group :development do
+  gem 'quiet_assets'
+end
+
 group :development, :test do
   gem 'debugger'
   gem 'factory_girl_rails', '~> 4.4'
