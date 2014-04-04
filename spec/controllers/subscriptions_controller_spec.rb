@@ -12,19 +12,14 @@ describe SubscriptionsController do
       }
     }}
 
-    context 'given valid data' do
-      it 'creates a subscription' do
-        expect { post :create, params }.to change{ Subscription.count }.by(+1)
-      end
+    before { post :create, params }
 
-      it 'redirects to the home page' do
-        post :create, params
-        expect(response).to redirect_to root_path
-      end
+    context 'given valid data' do
+      it { should redirect_to root_path }
     end
 
     context 'given invalid data' do
-      let(:invalid_params) {{
+      let(:params) {{
         subscription: {
           phone: "",
           address: Faker::Address.street_address,
@@ -34,21 +29,15 @@ describe SubscriptionsController do
         }
       }}
 
-      it 'does not create a subscription' do
-        expect { post :create, invalid_params }.not_to change{ Subscription.count }
-      end
-
-      it 'render the new template' do
-        post :create, invalid_params
-        expect(response).to render_template 'subscriptions/new'
-      end
+      it { should render_template('subscriptions/new') }
+      it { should_not set_the_flash }
     end
   end
 
   describe 'GET new' do
-    it 'is successful' do
-      get :new
-      expect(response).to be_success
-    end
+    before { get :new }
+
+    it { should respond_with(:success) }
+    it { should render_template('subscriptions/new') }
   end
 end
