@@ -54,7 +54,7 @@ $(function (){
   function updateLocation() {
     var address = $(this).val();
     if (isBlank(address)) return setLatLon(nullCoords);
-    $.getJSON(geocodeURL(address), _.compose(drawRadius, setLatLon, centerMap, _.first));
+    $.getJSON(geocodeURL(address), _.compose(drawRadius, centerMap, setLatLon, _.first));
   }
 
   $('#subscription_radius').change(_.partial(drawRadius, nullCoords));
