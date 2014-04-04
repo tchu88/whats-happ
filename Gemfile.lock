@@ -57,6 +57,7 @@ GEM
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     ffaker (1.23.0)
+    flutie (2.0.0)
     hike (1.2.3)
     i18n (0.6.9)
     jquery-rails (3.1.0)
@@ -148,6 +149,7 @@ DEPENDENCIES
   faraday
   faraday_middleware (~> 0.9)
   ffaker
+  flutie
   jquery-rails
   pg
   quiet_assets
