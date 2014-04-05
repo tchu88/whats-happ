@@ -1,0 +1,21 @@
+require 'spec_helper'
+
+describe Notifier do
+  let(:notifier) { Notifier.new(event) }
+  let(:event) { create(:event, message: message, latitude: latitude, longitude: longitude) }
+  let(:message) { 'hello human' }
+  let(:latitude) { 35.221277 }
+  let(:longitude) { -80.839268 }
+
+  before do
+    create(:subscription, phone: '555-555-5555', latitude: 35.2221428, longitude: -80.8390033, radius: 500)
+    create(:subscription, phone: '444-444-4444', latitude: 35.223177, longitude: -80.810581, radius: 500)
+  end
+
+  it 'sends the event message to subscribers with areas containing the event coordinates' do
+    expect(notifier).to receive(:send_message).with('555-555-5555', message)
+    expect(notifier).not_to receive(:send_message).with('444-444-4444', message)
+
+    notifier.call
+  end
+end
