@@ -1,6 +1,6 @@
 RSpec.configure do |config|
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:deletion)
+    DatabaseCleaner.clean_with(:deletion, except: %(spatial_ref_sys))
   end
 
   config.before(:each) do
@@ -19,3 +19,5 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+DatabaseCleaner.logger = Rails.logger
