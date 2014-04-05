@@ -23,6 +23,7 @@ $(function (){
   function getLat(){ return parseFloat($('#subscription_latitude').val()); }
   function getLon(){ return parseFloat($('#subscription_longitude').val()); }
   function getRadius() { return parseInt($('#subscription_radius').val(), 10); }
+  function fitBounds (e) { return map.fitBounds(circle.getBounds()); }
 
   function drawRadius(coords) {
     coords.lat = coords.lat || getLat();
@@ -32,7 +33,6 @@ $(function (){
     if (coords.radius && coords.lat && coords.lon) {
       circle.setLatLng([coords.lat, coords.lon]);
       circle.setRadius(coords.radius);
-      map.fitBounds(circle.getBounds());
     }
 
     return coords;
@@ -57,6 +57,8 @@ $(function (){
     $.getJSON(geocodeURL(address), _.compose(drawRadius, centerMap, setLatLon, _.first));
   }
 
-  $('#subscription_radius').change(_.partial(drawRadius, nullCoords));
   $('#subscription_address').change(updateLocation);
+  $('#subscription_radius')
+    .keyup(_.partial(drawRadius, nullCoords))
+    .change(fitBounds);
 });
