@@ -212,6 +212,13 @@ CREATE INDEX index_events_on_publisher_id ON events USING btree (publisher_id);
 
 
 --
+-- Name: index_on_subscriptions_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_on_subscriptions_location ON subscriptions USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
 -- Name: index_publishers_on_title; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -256,3 +263,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140403063824');
 INSERT INTO schema_migrations (version) VALUES ('20140403072803');
 
 INSERT INTO schema_migrations (version) VALUES ('20140405032322');
+
+INSERT INTO schema_migrations (version) VALUES ('20140405032506');
