@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :subscription do
-    phone { Faker::PhoneNumber.phone_number }
+    phone { Faker::PhoneNumber.short_phone_number }
     radius { (500..5000).to_a.sample }
     longitude { Faker::Geolocation.lng }
     latitude { Faker::Geolocation.lat }
