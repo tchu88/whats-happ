@@ -17,8 +17,13 @@ class Notifier
 
   def call
     each do |subscription|
-      send_message(subscription.phone, @event.message)
+      notify(subscription, @event)
     end
+  end
+
+  # TODO: use polymorphism to dispatch notication type by subscription
+  def notify(subscription, event)
+    send_message(subscription.phone, event.message)
   end
 
   def send_message(phone, body)
