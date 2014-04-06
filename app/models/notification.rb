@@ -6,5 +6,4 @@ class Notification < ActiveRecord::Base
 
   validates_presence_of :format
   validates_inclusion_of :format, in: FORMATS
-  validates_uniqueness_of :event_id, scope: :subscription_id
 end
