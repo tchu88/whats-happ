@@ -22,6 +22,7 @@ class Notifier
   end
 
   def send_message(phone, body)
+    SMSNotification.new(phone, body).call
   end
 
   def subscriptions(&block)
