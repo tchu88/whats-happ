@@ -6,8 +6,8 @@ describe Subscription do
     let!(:plaza_home) { create(:subscription, latitude: 35.223177, longitude: -80.810581, radius: 500) }
 
     it 'finds subscription with areas containing the given coordinates' do
-      subsciptions = Subscription.contains(latitude: 35.221277, longitude: -80.839268)
-      expect(subsciptions).to eq [old_city_hall]
+      subscriptions = Subscription.contains(latitude: 35.221277, longitude: -80.839268)
+      expect(subscriptions).to eq [old_city_hall]
     end
   end
 
