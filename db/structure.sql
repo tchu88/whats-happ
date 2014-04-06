@@ -163,7 +163,8 @@ CREATE TABLE subscriptions (
     longitude numeric(9,6) NOT NULL,
     latitude numeric(9,6) NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    format character varying(255) DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -323,3 +324,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140405032322');
 INSERT INTO schema_migrations (version) VALUES ('20140405032506');
 
 INSERT INTO schema_migrations (version) VALUES ('20140406184004');
+
+INSERT INTO schema_migrations (version) VALUES ('20140406191717');

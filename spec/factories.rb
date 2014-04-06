@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :notification do
-    format { Notification::FORMATS.sample }
   end
 
   factory :subscription do
@@ -8,6 +7,7 @@ FactoryGirl.define do
     radius { (500..5000).to_a.sample }
     longitude { Faker::Geolocation.lng }
     latitude { Faker::Geolocation.lat }
+    format { Subscription::FORMATS.sample }
   end
 
   factory :event do

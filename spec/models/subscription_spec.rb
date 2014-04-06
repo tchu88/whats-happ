@@ -27,6 +27,12 @@ describe Subscription do
     it { should respond_to(:address=) }
   end
 
+  describe '#format' do
+    it { should have_db_column(:format).of_type(:string).with_options(null: false, default: '') }
+    it { should validate_presence_of(:format) }
+    it { should ensure_inclusion_of(:format).in_array(Subscription::FORMATS) }
+  end
+
   include_examples "a longitude"
   include_examples "a latitude"
 end

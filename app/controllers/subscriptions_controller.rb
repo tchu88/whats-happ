@@ -15,6 +15,13 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_params
-    params.require(:subscription).permit(:phone, :longitude, :latitude, :radius)
+    params.require(:subscription).
+      permit(:phone, :longitude, :latitude, :radius).
+      merge(format: subscription_format)
+  end
+
+  # TODO: Will need to handle multiple formats eventually
+  def subscription_format
+    'sms'
   end
 end
