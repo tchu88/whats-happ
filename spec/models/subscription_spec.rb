@@ -14,14 +14,6 @@ describe Subscription do
   describe '#phone' do
     it { should have_db_column(:phone).of_type(:string).with_options(null: false) }
     it { should have_db_index(:phone) }
-    it { should allow_value('+4155556789').for(:phone) }
-    it { should_not allow_value('5556789').for(:phone) }
-
-    it 'strips non-digit characters' do
-      subscription = Subscription.new
-      subscription.phone = '+(415) 555-6789'
-      expect(subscription.phone).to eq '4155556789'
-    end
   end
 
   describe '#radius' do

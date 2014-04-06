@@ -4,7 +4,7 @@ describe SubscriptionsController do
   describe 'POST create' do
     let(:params) {{
       subscription: {
-        phone: Faker::PhoneNumber.phone_number,
+        phone: Faker::PhoneNumber.short_phone_number,
         address: Faker::Address.street_address,
         latitude: Faker::Geolocation.lat,
         longitude: Faker::Geolocation.lng,
