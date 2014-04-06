@@ -35,6 +35,12 @@ describe Subscription do
   describe '#phone' do
     it { should have_db_column(:phone).of_type(:string).with_options(null: false) }
     it { should have_db_index(:phone) }
+
+    it 'strips non-digits and adds a leading 1' do
+      subscription = Subscription.new
+      subscription.phone = '(602) 555-5555'
+      expect(subscription.phone).to eq '16025555555'
+    end
   end
 
   describe '#radius' do

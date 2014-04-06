@@ -14,15 +14,17 @@ describe IncomingMessagesController do
     context 'SMS filtering' do
 
       IncomingMessagesController::FILTER_WORDS.each do |flag|
-        let(:params) {{
-          'Body' => flag,
-          'From' => phone
-        }}
+        context(flag) do
+          let(:params) {{
+            'Body' => flag,
+            'From' => phone
+          }}
 
-        it 'marked all subscriptions with that number as unsubscribed' do
-          create(:subscription, phone: phone)
-          create(:subscription, phone: phone)
-          expect { post :create, params }.to change{ Subscription.active.count }.by(-2)
+          it 'marks all subscriptions with that number as unsubscribed' do
+            create(:subscription, phone: phone)
+            create(:subscription, phone: phone)
+            expect { post :create, params }.to change{ Subscription.active.count }.by(-2)
+          end
         end
       end
 

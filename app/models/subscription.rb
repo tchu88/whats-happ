@@ -27,6 +27,23 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.unsubscribe_number(phone)
-    where(phone: phone.gsub(/\D/,'')).update_all(unsubscribed_at: Time.now)
+    where(phone: normalize_phone_number(phone)).update_all(unsubscribed_at: Time.now)
+  end
+
+  def phone=(str)
+    super self.class.normalize_phone_number(str)
+  end
+
+  # TODO: how can this process be improved?
+  def self.normalize_phone_number(str)
+    # strip non-digits
+    str = str.gsub(/\D/,'')
+
+    # add a leading 1 if the length is 10
+    if str.length == 10
+      str = '1'+str
+    end
+
+    str
   end
 end
