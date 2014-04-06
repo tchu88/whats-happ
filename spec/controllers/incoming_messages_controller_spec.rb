@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe IncomingMessagesController do
   describe 'POST create' do
-    let(:phone) { '6025555555' }
+    let(:phone) { '+16025555555' }
 
     before do
       user = ENV.fetch('TWILIO_MESSAGES_NAME')
