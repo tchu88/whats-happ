@@ -22,12 +22,16 @@ class Notifier
   end
 
   # TODO: use polymorphism to dispatch notication type by subscription
+  # TODO: replace hardcoded format for notification (subscription.format probably)
+  # FYI: Notifier class is doing too much
   def notify(subscription, event)
-    send_message(subscription.phone, event.message)
+    record = Notification.create(subscription: subscription, event: event, format: 'sms')
+    send_message(record, subscription.phone, event.message)
   end
 
-  def send_message(phone, body)
+  def send_message(record, phone, body)
     SMSNotification.new(phone, body).call
+    record.update(succeeded_at: Time.now)
   end
 
   def subscriptions(&block)

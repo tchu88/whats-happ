@@ -10,9 +10,15 @@ describe Notifier do
   let(:longitude) { -80.839268 }
 
   it 'sends the event message to subscribers with areas containing the event coordinates' do
-    expect(notifier).to receive(:send_message).with(containing_subscription.phone, message)
-    expect(notifier).not_to receive(:send_message).with(other_subscription.phone, message)
+    expect(notifier).to receive(:send_message).with(instance_of(Notification), containing_subscription.phone, message)
+    expect(notifier).not_to receive(:send_message).with(instance_of(Notification), other_subscription.phone, message)
 
     notifier.call
+  end
+
+  it 'creates a notification record' do
+    stub_sms(containing_subscription.phone, message)
+
+    expect { notifier.call }.to change{ Notification.count }.by(+1)
   end
 end
