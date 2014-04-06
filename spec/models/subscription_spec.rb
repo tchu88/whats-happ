@@ -33,6 +33,11 @@ describe Subscription do
     it { should ensure_inclusion_of(:format).in_array(Subscription::FORMATS) }
   end
 
+  describe '#unsubscribed_at' do
+    it { should have_db_column(:unsubscribed_at).of_type(:datetime) }
+    it { should have_db_index(:unsubscribed_at) }
+  end
+
   include_examples "a longitude"
   include_examples "a latitude"
 end

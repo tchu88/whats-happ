@@ -164,7 +164,8 @@ CREATE TABLE subscriptions (
     latitude numeric(9,6) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    format character varying(255) DEFAULT ''::character varying NOT NULL
+    format character varying(255) DEFAULT ''::character varying NOT NULL,
+    unsubscribed_at timestamp without time zone
 );
 
 
@@ -297,6 +298,13 @@ CREATE INDEX index_subscriptions_on_phone ON subscriptions USING btree (phone);
 
 
 --
+-- Name: index_subscriptions_on_unsubscribed_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_subscriptions_on_unsubscribed_at ON subscriptions USING btree (unsubscribed_at);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -326,3 +334,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140405032506');
 INSERT INTO schema_migrations (version) VALUES ('20140406184004');
 
 INSERT INTO schema_migrations (version) VALUES ('20140406191717');
+
+INSERT INTO schema_migrations (version) VALUES ('20140406195059');
