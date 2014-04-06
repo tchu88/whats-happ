@@ -20,6 +20,7 @@ describe StreamUpdate do
         new_events = subject.call
         expect(new_events.length).to eq 1
         expect(new_events.first.message).to eq "hello human"
+        expect(new_events.first.publisher).to eq publisher
       end
     end
 

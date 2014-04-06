@@ -16,7 +16,7 @@ class StreamUpdate < Struct.new(:publisher)
   end
 
   def build_event(attributes)
-    Event.new(attributes)
+    publisher.events.new(attributes)
   end
 
   def save?(event)
