@@ -78,6 +78,40 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    event_id integer NOT NULL,
+    subscription_id integer NOT NULL,
+    format character varying(255) NOT NULL,
+    succeeded_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
+
+
+--
 -- Name: publishers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -163,6 +197,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY publishers ALTER COLUMN id SET DEFAULT nextval('publishers_id_seq'::regclass);
 
 
@@ -179,6 +220,14 @@ ALTER TABLE ONLY subscriptions ALTER COLUMN id SET DEFAULT nextval('subscription
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -209,6 +258,13 @@ CREATE UNIQUE INDEX index_events_on_message ON events USING btree (message);
 --
 
 CREATE INDEX index_events_on_publisher_id ON events USING btree (publisher_id);
+
+
+--
+-- Name: index_notifications_on_event_id_and_subscription_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_notifications_on_event_id_and_subscription_id ON notifications USING btree (event_id, subscription_id);
 
 
 --
@@ -265,3 +321,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140403072803');
 INSERT INTO schema_migrations (version) VALUES ('20140405032322');
 
 INSERT INTO schema_migrations (version) VALUES ('20140405032506');
+
+INSERT INTO schema_migrations (version) VALUES ('20140406184004');

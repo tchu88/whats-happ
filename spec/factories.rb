@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  factory :notification do
+    format { Notification::FORMATS.sample }
+  end
+
   factory :subscription do
     phone { Faker::PhoneNumber.short_phone_number }
     radius { (500..5000).to_a.sample }
