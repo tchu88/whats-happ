@@ -11,6 +11,27 @@ describe Subscription do
     end
   end
 
+  describe '.active' do
+    it 'returns subscriptions which have not been unsubscribed' do
+      unsubscribed = create(:subscription, unsubscribed_at: Time.now)
+      subscribed = create(:subscription)
+      expect(Subscription.active).to eq [subscribed]
+    end
+  end
+
+  describe '.unsubscribe_number' do
+    it 'unsubscribes all subsciptions with the given number' do
+      phone = '6025550680'
+      first = create(:subscription, phone: phone)
+      second = create(:subscription, phone: phone)
+      other = create(:subscription, phone: '4155550987')
+
+      expect(Subscription.active.to_a).to eq [other, second, first]
+      Subscription.unsubscribe_number(first.phone)
+      expect(Subscription.active.to_a).to eq [other]
+    end
+  end
+
   describe '#phone' do
     it { should have_db_column(:phone).of_type(:string).with_options(null: false) }
     it { should have_db_index(:phone) }

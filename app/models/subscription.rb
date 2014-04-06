@@ -21,4 +21,12 @@ class Subscription < ActiveRecord::Base
   def self.contains(opts)
     where(CONTAINS, opts.fetch(:longitude), opts.fetch(:latitude))
   end
+
+  def self.active
+    where(unsubscribed_at: nil)
+  end
+
+  def self.unsubscribe_number(phone)
+    where(phone: phone.gsub(/\D/,'')).update_all(unsubscribed_at: Time.now)
+  end
 end
