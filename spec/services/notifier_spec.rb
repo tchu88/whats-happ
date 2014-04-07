@@ -21,4 +21,10 @@ describe Notifier do
 
     expect { notifier.call }.to change{ Notification.count }.by(+1)
   end
+
+  it 'does not send messages to unsubscribed phone numbers' do
+    subscription = create(:subscription, unsubscribed_at: Time.now, phone: '333-333-333', latitude: 35.2221428, longitude: -80.8390033, radius: 500)
+    expect(notifier).not_to receive(:send_message).with(subscription.phone, message)
+    notifier.call
+  end
 end

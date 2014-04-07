@@ -35,6 +35,6 @@ class Notifier
   end
 
   def subscriptions(&block)
-    Subscription.contains(latitude: @event.latitude, longitude: @event.longitude)
+    Subscription.active.contains(latitude: @event.latitude, longitude: @event.longitude)
   end
 end
