@@ -23,3 +23,4 @@ en:
   subscriptions:
     create:
       success: "Subscription successfully created"
+      confirmation: "You have successfully been subscribed to messages from %{title}. Reply HELP for help. Reply STOP to unsubscribe."
