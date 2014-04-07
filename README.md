@@ -63,6 +63,8 @@ The `/messages` route is protected by HTTP Basic Authentication. The values of T
 
 4) Push the code base
 
+Sign up for [Heroku](http://heroku.com/) and install the [Toolbelt](https://toolbelt.heroku.com/) if you haven't already.
+
 ```console
 git push heroku master
 heroku run rake db:migrate
