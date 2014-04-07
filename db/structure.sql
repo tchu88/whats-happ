@@ -270,6 +270,13 @@ CREATE UNIQUE INDEX index_notifications_on_event_id_and_subscription_id ON notif
 
 
 --
+-- Name: index_on_events_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_on_events_location ON events USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
 -- Name: index_on_subscriptions_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -336,3 +343,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140406184004');
 INSERT INTO schema_migrations (version) VALUES ('20140406191717');
 
 INSERT INTO schema_migrations (version) VALUES ('20140406195059');
+
+INSERT INTO schema_migrations (version) VALUES ('20140407222002');
