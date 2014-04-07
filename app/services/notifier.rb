@@ -26,12 +26,12 @@ class Notifier
   # FYI: Notifier class is doing too much
   def notify(subscription, event)
     record = Notification.create(subscription: subscription, event: event, format: 'sms')
-    send_message(record, subscription.phone, event.message)
+    send_message(subscription.phone, event.message)
+    record.update(succeeded_at: Time.now)
   end
 
-  def send_message(record, phone, body)
+  def send_message(phone, body)
     SMSNotification.new(phone, body).call
-    record.update(succeeded_at: Time.now)
   end
 
   def subscriptions(&block)
