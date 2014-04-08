@@ -41,7 +41,7 @@ $(function (){
   }
   function displayEventMarker(event) {
     var marker = L.marker([event.latitude, event.longitude]).addTo(map);
-    marker.bindPopup('<p>'+event.message+'</p>');
+    marker.bindPopup('<p>'+event.message+'<br/><small>'+event.created_at+'</small></p>');
     eventMarkers.addLayer(marker);
     return marker;
   }
