@@ -13,7 +13,10 @@ $(function (){
     lineCap:     'round',
     clickable:   false
   };
-  var initialCoords = [37.7756648, -122.4136613];
+  var initialCoords = [
+    defaultIfBlank(getLat(), 37.7756648),
+    defaultIfBlank(getLon(), -122.4136613)
+  ];
   var nullCoords = { lat: null, lon: null };
   var map = L.map('subscription_map').setView(initialCoords, 12);
   var circle = L.circle(initialCoords, 0, circleStyle).addTo(map);
@@ -88,14 +91,20 @@ $(function (){
            encodeURIComponent(address)+
            "&format=json&limit=1&addressdetails=1";
   }
-  function updateLocation() {
-    var address = $(this).val();
+  function updateLocation(callback) {
+    var address = $('#subscription_address').val();
     if (isBlank(address)) return setLatLon(nullCoords);
-    $.getJSON(geocodeURL(address), _.compose(eventsInArea, drawRadius, centerMap, setLatLon, _.first));
+    $.getJSON(geocodeURL(address))
+      .done(_.compose(eventsInArea, drawRadius, centerMap, setLatLon, _.first))
+      .done(callback);
   }
 
   $('#subscription_address').change(updateLocation);
   $('#subscription_radius')
     .keyup(_.compose(_.throttle(eventsInArea, 500), _.partial(drawRadius, nullCoords)))
     .change(fitBounds);
+
+  $(function(){
+    updateLocation(fitBounds);
+  });
 });
