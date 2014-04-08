@@ -19,6 +19,7 @@ $(function (){
   var circle = L.circle(initialCoords, 0, circleStyle).addTo(map);
   var eventMarkers = new L.FeatureGroup();
   L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+  map.on('popupopen', function(e) { $('.timeago').timeago(); });
 
   function isBlank(str) { return (!str || /^\s*$/.test(str)); }
   function defaultIfBlank(val, _default) { return isBlank(val) ? _default || "" : val; }
@@ -41,7 +42,7 @@ $(function (){
   }
   function displayEventMarker(event) {
     var marker = L.marker([event.latitude, event.longitude]).addTo(map);
-    marker.bindPopup('<p>'+event.message+'<br/><small>'+event.created_at+'</small></p>');
+    marker.bindPopup("<p>"+event.message+"<br/><small><time class='timeago' datetime="+event.created_at+"></time></small></p>");
     eventMarkers.addLayer(marker);
     return marker;
   }
