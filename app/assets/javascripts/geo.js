@@ -17,18 +17,54 @@ $(function (){
   var nullCoords = { lat: null, lon: null };
   var map = L.map('subscription_map').setView(initialCoords, 12);
   var circle = L.circle(initialCoords, 0, circleStyle).addTo(map);
+  var eventMarkers = new L.FeatureGroup();
   L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
 
   function isBlank(str) { return (!str || /^\s*$/.test(str)); }
-  function getLat(){ return parseFloat($('#subscription_latitude').val()); }
-  function getLon(){ return parseFloat($('#subscription_longitude').val()); }
-  function getRadius() { return parseInt($('#subscription_radius').val(), 10); }
+  function defaultIfBlank(val, _default) { return isBlank(val) ? _default || "" : val; }
+  function getLat(){ return defaultIfBlank(parseFloat($('#subscription_latitude').val())); }
+  function getLon(){ return defaultIfBlank(parseFloat($('#subscription_longitude').val())); }
+  function getRadius() { return defaultIfBlank(parseInt($('#subscription_radius').val(), 10)); }
   function fitBounds (e) { return map.fitBounds(circle.getBounds()); }
 
-  function drawRadius(coords) {
+  function buildCoords(coords) {
+    coords = _.pick(coords || {}, 'lat', 'lon', 'radius');
     coords.lat = coords.lat || getLat();
     coords.lon = coords.lon || getLon();
-    coords.radius = getRadius();
+    coords.radius = coords.radius || getRadius();
+    return coords;
+  }
+  function clearEventMarkers() {
+    eventMarkers.eachLayer(function(layer){
+      map.removeLayer(layer);
+    });
+  }
+  function displayEventMarker(event) {
+    var marker = L.marker([event.latitude, event.longitude]).addTo(map);
+    marker.bindPopup('<p>'+event.message+'</p>');
+    eventMarkers.addLayer(marker);
+    return marker;
+  }
+  function displayEvents(data) {
+    _.each(data, displayEventMarker);
+    return data;
+  }
+  function eventsInArea(coords) {
+    coords = buildCoords(coords);
+    clearEventMarkers();
+
+    if (!coords.lat || !coords.lon || !coords.radius) return coords;
+
+    $.getJSON('/events', {
+      latitude: coords.lat,
+      longitude: coords.lon,
+      radius: coords.radius
+    }).done(displayEvents);
+
+    return coords;
+  }
+  function drawRadius(coords) {
+    coords = buildCoords(_.extend(coords || {}, {radius: getRadius()}));
 
     if (coords.radius && coords.lat && coords.lon) {
       circle.setLatLng([coords.lat, coords.lon]);
@@ -54,11 +90,11 @@ $(function (){
   function updateLocation() {
     var address = $(this).val();
     if (isBlank(address)) return setLatLon(nullCoords);
-    $.getJSON(geocodeURL(address), _.compose(drawRadius, centerMap, setLatLon, _.first));
+    $.getJSON(geocodeURL(address), _.compose(eventsInArea, drawRadius, centerMap, setLatLon, _.first));
   }
 
   $('#subscription_address').change(updateLocation);
   $('#subscription_radius')
-    .keyup(_.partial(drawRadius, nullCoords))
+    .keyup(_.compose(eventsInArea, _.partial(drawRadius, nullCoords)))
     .change(fitBounds);
 });
