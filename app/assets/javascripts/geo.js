@@ -95,6 +95,6 @@ $(function (){
 
   $('#subscription_address').change(updateLocation);
   $('#subscription_radius')
-    .keyup(_.compose(eventsInArea, _.partial(drawRadius, nullCoords)))
+    .keyup(_.compose(_.throttle(eventsInArea, 500), _.partial(drawRadius, nullCoords)))
     .change(fitBounds);
 });
