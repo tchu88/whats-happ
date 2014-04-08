@@ -29,7 +29,7 @@ $(function (){
   function getLat(){ return defaultIfBlank(parseFloat($('#subscription_latitude').val())); }
   function getLon(){ return defaultIfBlank(parseFloat($('#subscription_longitude').val())); }
   function getRadius() { return defaultIfBlank(parseInt($('#subscription_radius').val(), 10)); }
-  function fitBounds (e) { return map.fitBounds(circle.getBounds()); }
+  function fitBounds(e) { return map.fitBounds(circle.getBounds()); }
 
   function buildCoords(coords) {
     coords = _.pick(coords || {}, 'lat', 'lon', 'radius');
