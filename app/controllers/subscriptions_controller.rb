@@ -9,6 +9,7 @@ class SubscriptionsController < ApplicationController
       send_confirmation(@subscription)
       redirect_to root_path, notice: t('subscriptions.create.success')
     else
+      flash[:error] = t('subscriptions.create.failure')
       render :new
     end
   end
@@ -17,7 +18,7 @@ class SubscriptionsController < ApplicationController
 
   def subscription_params
     params.require(:subscription).
-      permit(:phone, :longitude, :latitude, :radius).
+      permit(:phone, :longitude, :latitude, :radius, :address).
       merge(format: subscription_format)
   end
 

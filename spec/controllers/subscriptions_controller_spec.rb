@@ -36,7 +36,7 @@ describe SubscriptionsController do
       }}
 
       it { should render_template('subscriptions/new') }
-      it { should_not set_the_flash }
+      it { should set_the_flash.to(I18n.t('subscriptions.create.failure')) }
     end
   end
 
