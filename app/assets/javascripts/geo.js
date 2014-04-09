@@ -45,7 +45,7 @@ $(function (){
   }
   function displayEventMarker(event) {
     var marker = L.marker([event.latitude, event.longitude]).addTo(map);
-    var html = "<p>"+event.message+"<br/><small><time class='timeago' title='"+event.created_at+"' datetime="+event.created_at+"></time></small></p>"
+    var html = "<p>"+event.message+"<br/><small><time class='timeago' title='"+event.created_at+"' datetime='"+event.created_at+"'></time></small></p>"
     marker.bindPopup(html);
     eventMarkers.addLayer(marker);
     return marker;
