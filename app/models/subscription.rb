@@ -34,13 +34,8 @@ class Subscription < ActiveRecord::Base
     )
   }.freeze
 
-  def self.contains(opts)
-    where(CONTAINS, opts.fetch(:longitude), opts.fetch(:latitude))
-  end
-
-  def self.active
-    where(unsubscribed_at: nil)
-  end
+  scope :contains, ->(opts){ where(CONTAINS, opts.fetch(:longitude), opts.fetch(:latitude)) }
+  scope :active, ->{ where(unsubscribed_at: nil) }
 
   def self.unsubscribe_number(phone)
     where(phone: normalize_phone_number(phone)).update_all(unsubscribed_at: Time.now)
