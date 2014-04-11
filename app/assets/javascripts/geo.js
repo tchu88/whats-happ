@@ -92,12 +92,11 @@ $(function (){
            encodeURIComponent(address)+
            "&format=json&limit=1&addressdetails=1";
   }
-  function updateLocation(callback) {
+  function updateLocation() {
     var address = $('#subscription_address').val();
     if (isBlank(address)) return setLatLon(nullCoords);
     $.getJSON(geocodeURL(address))
-      .done(_.compose(eventsInArea, drawRadius, centerMap, setLatLon, _.first))
-      .done(callback);
+      .done(_.compose(fitBounds, eventsInArea, drawRadius, centerMap, setLatLon, _.first))
   }
 
   $('#subscription_address').change(updateLocation);
@@ -105,7 +104,5 @@ $(function (){
     .keyup(_.compose(_.throttle(eventsInArea, 500), _.partial(drawRadius, nullCoords)))
     .change(fitBounds);
 
-  $(function(){
-    updateLocation(fitBounds);
-  });
+  $(updateLocation);
 });
