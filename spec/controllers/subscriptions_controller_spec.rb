@@ -2,15 +2,7 @@ require 'spec_helper'
 
 describe SubscriptionsController do  
   describe 'POST create' do
-    let(:params) {{
-      subscription: {
-        phone: Faker::PhoneNumber.short_phone_number,
-        address: Faker::Address.street_address,
-        latitude: Faker::Geolocation.lat,
-        longitude: Faker::Geolocation.lng,
-        radius: 500
-      }
-    }}
+    let(:params) {{ subscription: attributes_for(:subscription) }}
 
     context 'given valid data' do
       before do
@@ -25,15 +17,7 @@ describe SubscriptionsController do
     context 'given invalid data' do
       before { post :create, params }
 
-      let(:params) {{
-        subscription: {
-          phone: "",
-          address: Faker::Address.street_address,
-          latitude: Faker::Geolocation.lat,
-          longitude: Faker::Geolocation.lng,
-          radius: 500
-        }
-      }}
+      let(:params) {{ subscription: attributes_for(:subscription).merge(phone: '') }}
 
       it { should render_template('subscriptions/new') }
       it { should set_the_flash.to(I18n.t('subscriptions.create.failure')) }
