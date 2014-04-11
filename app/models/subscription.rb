@@ -37,7 +37,7 @@ class Subscription < ActiveRecord::Base
   scope :contains, ->(opts){ where(CONTAINS, opts.fetch(:longitude), opts.fetch(:latitude)) }
   scope :active, ->{ where(unsubscribed_at: nil) }
 
-  def self.unsubscribe_number(phone)
+  def self.unsubscribe_number!(phone)
     where(phone: normalize_phone_number(phone)).update_all(unsubscribed_at: Time.now)
   end
 

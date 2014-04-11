@@ -35,7 +35,7 @@ describe Subscription do
     end
   end
 
-  describe '.unsubscribe_number' do
+  describe '.unsubscribe_number!' do
     it 'unsubscribes all subsciptions with the given number' do
       phone = '6025550680'
       first = create(:subscription, phone: phone)
@@ -43,7 +43,7 @@ describe Subscription do
       other = create(:subscription, phone: '4155550987')
 
       expect(Subscription.active.to_a).to eq [other, second, first]
-      Subscription.unsubscribe_number(first.phone)
+      Subscription.unsubscribe_number!(first.phone)
       expect(Subscription.active.to_a).to eq [other]
     end
   end

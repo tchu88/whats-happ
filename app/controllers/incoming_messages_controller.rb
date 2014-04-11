@@ -15,7 +15,7 @@ class IncomingMessagesController < ApplicationController
 
   def process_unsubscribe(params)
     if FILTER_WORD_REGEXP === params['Body']
-      Subscription.unsubscribe_number(params['From'])
+      Subscription.unsubscribe_number!(params['From'])
     end
   end
 end
