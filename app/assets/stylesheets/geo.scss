@@ -1,4 +1,8 @@
 body.subscriptions {
+  .fields_with_error {
+    display: inline;
+  }
+
   h1 {
     font-family:Lato;
     font-size:60px;
