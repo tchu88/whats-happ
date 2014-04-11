@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id              :integer          not null, primary key
+#  phone           :string(255)      not null
+#  radius          :integer          not null
+#  longitude       :decimal(9, 6)    not null
+#  latitude        :decimal(9, 6)    not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#  format          :string(255)      default(""), not null
+#  unsubscribed_at :datetime
+#  publisher_id    :integer
+#
+
 class Subscription < ActiveRecord::Base
   FORMATS = %w(sms)
 

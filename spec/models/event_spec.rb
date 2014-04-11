@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id           :integer          not null, primary key
+#  message      :string(255)      not null
+#  longitude    :decimal(9, 6)    not null
+#  latitude     :decimal(9, 6)    not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  publisher_id :integer
+#
+
 require 'spec_helper'
 
 describe Event do

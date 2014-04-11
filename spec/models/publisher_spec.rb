@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: publishers
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)      not null
+#  url        :string(255)      not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe Publisher do
