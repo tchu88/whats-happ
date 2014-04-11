@@ -21,7 +21,7 @@ $(function (){
   var map = L.map('subscription_map').setView(initialCoords, 12);
   var circle = L.circle(initialCoords, 0, circleStyle).addTo(map);
   var eventMarkers = new L.FeatureGroup();
-  L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+  L.esri.basemapLayer("Gray").addTo(map);
   map.on('popupopen', function(e) { $('.timeago').timeago(); });
 
   function isBlank(str) { return (!str || /^\s*$/.test(str)); }

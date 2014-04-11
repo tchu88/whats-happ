@@ -15,4 +15,5 @@
 //= require jquery.timeago
 //= require timeago
 //= require underscore
+//= require esri-leaflet-src.js
 //= require geo
