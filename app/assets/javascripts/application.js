@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require jquery.timeago
 //= require timeago
-//= require bootstrap
 //= require underscore
 //= require geo

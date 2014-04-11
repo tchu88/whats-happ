@@ -1,18 +1,17 @@
+<h1><strong>what's happening</strong> in my area?</h1>
 <div id="subscription_map"></div>
-<%= form_for @subscription, role: 'form' do |f| %>
-  <%= f.hidden_field :longitude %>
-  <%= f.hidden_field :latitude %>
-  <div class="form-group">
-    <%= f.label :address %>
-    <%= f.text_field :address, class: 'form-control', autofocus: true %>
-  </div>
-  <div class="form-group">
-    <%= f.label :radius %>
-    <%= f.text_field :radius, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone %>
-    <%= f.text_field :phone, class: 'form-control' %>
-  </div>
-  <%= f.button :submit, class: 'btn btn-default' %>
-<% end %>
+<div id="container">
+  <%= form_for @subscription do |f| %>
+    <%= f.hidden_field :longitude %>
+    <%= f.hidden_field :latitude %>
+    <p>For a
+    <select id="subscription_radius" name="subscription[radius]">
+      <option value="1609">&nbsp;&nbsp;&nbsp;1-mile radius&nbsp;&nbsp;&nbsp;</option>
+      <option value="3218">&nbsp;&nbsp;&nbsp;2-mile radius&nbsp;&nbsp;&nbsp;</option>
+      <option value="4828">&nbsp;&nbsp;&nbsp;3-mile radius&nbsp;&nbsp;&nbsp;</option>
+      <option value="6437">&nbsp;&nbsp;&nbsp;4-mile radius&nbsp;&nbsp;&nbsp;</option>
+    </select> from <input id="subscription_address" name="subscription[address]" type="text" placeholder="my address"></p>
+    <p>text me at <input id="subscription_phone" name="subscription[phone]" type="phone" placeholder="phone number"> when something happens.</p>
+    <%= f.button :submit, class: 'submit' %>
+  <% end %>
+</div>
