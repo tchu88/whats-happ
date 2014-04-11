@@ -5,13 +5,14 @@
     <%= f.hidden_field :longitude %>
     <%= f.hidden_field :latitude %>
     <p>For a
-    <select id="subscription_radius" name="subscription[radius]">
-      <option value="1609">&nbsp;&nbsp;&nbsp;1-mile radius&nbsp;&nbsp;&nbsp;</option>
-      <option value="3218">&nbsp;&nbsp;&nbsp;2-mile radius&nbsp;&nbsp;&nbsp;</option>
-      <option value="4828">&nbsp;&nbsp;&nbsp;3-mile radius&nbsp;&nbsp;&nbsp;</option>
-      <option value="6437">&nbsp;&nbsp;&nbsp;4-mile radius&nbsp;&nbsp;&nbsp;</option>
-    </select> from <input id="subscription_address" name="subscription[address]" type="text" placeholder="my address"></p>
-    <p>text me at <input id="subscription_phone" name="subscription[phone]" type="phone" placeholder="phone number"> when something happens.</p>
+    <%= f.select :radius, [
+      ["&nbsp;&nbsp;&nbsp;1-mile radius&nbsp;&nbsp;&nbsp;".html_safe, "1609"],
+      ["&nbsp;&nbsp;&nbsp;2-mile radius&nbsp;&nbsp;&nbsp;".html_safe, "3218"],
+      ["&nbsp;&nbsp;&nbsp;3-mile radius&nbsp;&nbsp;&nbsp;".html_safe, "4828"],
+      ["&nbsp;&nbsp;&nbsp;4-mile radius&nbsp;&nbsp;&nbsp;".html_safe, "6437"]
+    ] %> from <%= f.text_field :address, placeholder: 'my address' %>
+    </p>
+    <p>text me at <%= f.text_field :phone, placeholder: 'phone number' %> when something happens.</p>
     <%= f.button :submit, class: 'submit' %>
   <% end %>
 </div>
