@@ -14,8 +14,8 @@ $(function (){
     clickable:   false
   };
   var initialCoords = [
-    defaultIfBlank(getLat(), 37.7756648),
-    defaultIfBlank(getLon(), -122.4136613)
+    defaultIfBlank(getLat(), 35.2213231),
+    defaultIfBlank(getLon(), -80.8392741)
   ];
   var nullCoords = { lat: null, lon: null };
   var map = L.map('subscription_map').setView(initialCoords, 12);
