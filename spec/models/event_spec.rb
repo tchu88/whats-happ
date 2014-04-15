@@ -28,9 +28,9 @@ describe Event do
 
   describe '.last_week' do
     it 'find events within the last week' do
-      too_old = create(:event, created_at: 2.weeks.ago)
+      too_old = create(:event, created_at: 2.days.ago)
       recent = create(:event)
-      expect(Event.last_week).to eq [recent]
+      expect(Event.recent).to eq [recent]
     end
   end
 

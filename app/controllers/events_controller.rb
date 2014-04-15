@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Event.last_week.within(query)
+    respond_with Event.recent.within(query)
   end
 
   private

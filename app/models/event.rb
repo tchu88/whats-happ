@@ -29,5 +29,5 @@ class Event < ActiveRecord::Base
   }.freeze
 
   scope :within, ->(opts){ where(WITHIN, opts.fetch(:longitude), opts.fetch(:latitude), opts.fetch(:radius)) }
-  scope :last_week, ->{ where('created_at >= ?', 1.week.ago) }
+  scope :recent, ->{ where('created_at >= ?', 1.day.ago) }
 end
