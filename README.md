@@ -1,3 +1,5 @@
+# NO LONGER UNDER DEVELOPMENT
+
 # WhatsHapp [![Build Status](https://travis-ci.org/tchu88/whats-happ.svg?branch=master)](https://travis-ci.org/tchu88/whats-happ)
 
 ## Setup
